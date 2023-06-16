@@ -23,6 +23,7 @@ parser.add_argument('--input_bam', help='Full path to input .BAM file to process
 parser.add_argument('--input_cluster_identifier_file', help='Full path to the output of cluster_identifier run on your .BAM file. ASSUMES YOU HAVE RUN IT ON THE SAME BAM FILE AS PROVIDED ABOVE')
 parser.add_argument('--output_base', help='Output base name. Default current working directory and "TSD_parse_out"', default = "TSD_parse_out" )
 parser.add_argument('--input_type', help = 'One of SR, LR, AS for Short-Read, Long-Read or Assembly for the type of bam to process.', default = "SR")
+
 args = parser.parse_args()
 
 input_path_bam = args.input_bam
@@ -248,7 +249,10 @@ def main():
 		bam_file_coordinates = generate_coordinates(bam_file_parameters,cluster_identifier_file_TSD_coordinates,step_size,window_size)
 		ic(len(bam_file_coordinates))
 		Potential_TSD_list = read_BAM_file(bam_file, bam_file_coordinates)
-		pd.DataFrame(Potential_TSD_list).to_csv(output_base + ".WindowSize" + str(window_size) + ".AllTSDs.bed", index=False, sep = "\t", header = False)
+		pd.DataFrame(Potential_TSD_list).to_csv(output_base + ".WindowSize_" + str(window_size) + ".bed", index=False, sep = "\t", header = False)
+	else:
+		print("Working on long-read and assembly alignments at the moment! Please stay tuned :-)")
+		exit()
 
 if __name__ == "__main__":
 	main()
