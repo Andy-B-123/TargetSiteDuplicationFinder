@@ -2,10 +2,10 @@
 A series of scripts to identify mobile element insertions characterised by Target Site Duplications from a short-read alignment file.
 
 
-### Requiements and Install 
-The parsing script takes advantage of the output from the _very_ fast cluster_identifier tool written for the [Scramble](https://github.com/GeneDx/scramble) program, which identifies ALU, LINE and SVA elements in humans. Please follow the installation instructions on that page to install cluster_identifier (you will need htslib available):
+### Requiements 
+The parsing script takes advantage of the output from the _very_ fast cluster_identifier tool written for the [Scramble](https://github.com/GeneDx/scramble) program, which identifies ALU, LINE and SVA elements in humans. Please follow the installation instructions on that page to install cluster_identifier (you will need htslib available).
 
-
+### Install 
 The parsing script here uses a small number of non-standard python libraries. Please install to user (if you do not have root permissions) for the following:
 ```
 pip install tqdm --user
