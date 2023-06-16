@@ -48,15 +48,16 @@ python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.ba
 ```
 
 ### Output  
-The output of the program is a slim .bed file with the coordinates of the start and end of the target site duplication event identified above. For the example data there are only two:
+The output of the program is a slim .bed file with the coordinates of the start and end of the target site duplication event identified above, and the first coordinate from the cluster_identifier output in the 4th column. Sometimes there can be mild differences in the exact coordinates between the parsing script and region identified by cluster_identifier.
+For the example data there are only two:
 ```
-> cat SlimData.test.WindowSize25.AllTSDs.bed
-scaffold_29     4822338 4822347
-scaffold_29     6632085 6632099
+> cat TSD_Check.WindowSize_30.bed
+scaffold_29     4822338 4822347 scaffold_29:4822338
+scaffold_29     6632085 6632099 scaffold_29:6632085
 
 ```
 
 This can be loaded into IGV as a .bed track or intersected with an annotation file using bedtools. 
 
 ### Follow-up
-After identifying interesting TSD sites we can use the output from cluster_identifier for identification of potential repeat elements (or other investigations). 
+After identifying interesting TSD sites we can use the output from cluster_identifier for identification of potential repeat elements (or other investigations).  
