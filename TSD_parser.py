@@ -102,8 +102,10 @@ def generate_coordinates(bam_characteristics,cluster_identifier_hits,step_size,w
 
 	coordinates = []
 	for potential_TSD in cluster_identifier_hits:
-		for j in range( (potential_TSD[1]-(window_size*2)) , (potential_TSD[1]+(window_size*4)) , step_size):
-			coordinates.append([potential_TSD[0],j,j + window_size])
+		ic(potential_TSD)
+		for j in range( (potential_TSD[1]-(window_size*2)) , (potential_TSD[1]+(window_size*2)) , step_size):
+			coordinates.append([potential_TSD[0],j,j + window_size, potential_TSD[1]])
+	ic(coordinates)
 	return coordinates
 
 def read_BAM_file(bam_file, bam_file_coordinates):
@@ -112,6 +114,7 @@ def read_BAM_file(bam_file, bam_file_coordinates):
 
 	window_evaluation = []	
 	ic(len(bam_file_coordinates))
+	ic(bam_file_coordinates)
 	# iterate over contigs with window approach, for contigs that have reads
 	for potential_site in tqdm(bam_file_coordinates):
 		if check_for_TSD(bam, potential_site[0], potential_site[1],potential_site[2]) != None:
@@ -119,14 +122,14 @@ def read_BAM_file(bam_file, bam_file_coordinates):
 			if check_sufficient_coverage(bam, TSD_scaffold, TSD_start, TSD_stop):
 				if check_for_clipped_bases(bam,TSD_scaffold, TSD_start, TSD_stop):
 					if check_for_mismapped_reads(bam,TSD_scaffold, TSD_start, TSD_stop):
-						window_evaluation.append([TSD_scaffold, TSD_start, TSD_stop])
+						window_evaluation.append([TSD_scaffold, TSD_start, TSD_stop, potential_site[0] +":"+ str(potential_site[3])])
 		else:
 			continue
 	bam.close()
-#	ic(window_evaluation)
+	ic(window_evaluation)
 	window_evaluation_deduped = []
 	[window_evaluation_deduped.append(item) for item in window_evaluation if item not in window_evaluation_deduped]
-#	ic(window_evaluation_deduped)
+	ic(window_evaluation_deduped)
 	return window_evaluation_deduped
 
 
@@ -231,8 +234,8 @@ def main():
 	# Example usage
 	bam_file = input_path_bam
 	global window_size 
-	window_size= 25
-	step_size = 5
+	window_size= 30
+	step_size = 6
 	global coverage_threshold 
 	coverage_threshold= 20
 	global input_read_length 
