@@ -44,7 +44,7 @@ options:
 If the above is available, please try running with the provided example data:
 ```
 cd TargetSiteDuplicationFinder
-python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --input_cluster_identifier_file ExampleData/SlimData.BothTargetRegions.sort.clusterIdentifier.out --output_base SlimData.test
+python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --input_cluster_identifier_file ExampleData/SlimData.BothTargetRegions.sort.clusterIdentifier.out --output_base TSD_Check
 ```
 
 ### Output  
