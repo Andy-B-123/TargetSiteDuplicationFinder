@@ -7,7 +7,7 @@ The following assumptions are made about the file:
  * A single sample mapped to a reference
  * Mapped using BWA-MEM2 (required for soft-clipping from reads)
  * Sorted and index available
- * Average coverage ~10x
+ * Average coverage ~20x
 
 ### Requirements 
 The parsing script takes advantage of the output from the _very_ fast cluster_identifier tool written for the [Scramble](https://github.com/GeneDx/scramble) program, which identifies ALU, LINE and SVA elements in humans. Please follow the installation instructions on that page to install cluster_identifier (you will need htslib available).
