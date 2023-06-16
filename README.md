@@ -1,5 +1,5 @@
 # TargetSiteDuplicationFinder
-A series of scripts to identify mobile element insertions characterised by Target Site Duplications from a short-read alignment file.
+A series of scripts to identify mobile element insertions characterised by Target Site Duplications (TSD) from a short-read alignment file.
 
 ### Assumptions
 This script is is focused on identifying mobile elements which cause Target Site Duplications, which are often not able to be identified correctly from other variant analysis tools.
@@ -7,8 +7,8 @@ The following assumptions are made about the file:
  * A single sample mapped to a reference
  * Mapped using BWA-MEM2 (required for soft-clipping from reads)
  * Sorted and index available
- * Average coverage ~20x
-
+ * Average coverage ~20x[^1]
+[^1]: Note that if you have less than this you can adjust the threshold, but much less than 10x is going to be hard to identify TSD reliably
 ### Requirements 
 The parsing script takes advantage of the output from the _very_ fast cluster_identifier tool written for the [Scramble](https://github.com/GeneDx/scramble) program, which identifies ALU, LINE and SVA elements in humans. Please follow the installation instructions on that page to install cluster_identifier (you will need htslib available).
 
