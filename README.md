@@ -41,7 +41,20 @@ options:
 ```
 
 ### Running  
-If the above is available, please try 
+If the above is available, please try running with the provided example data:
+```
+cd TargetSiteDuplicationFinder
+python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --input_cluster_identifier_file ExampleData/SlimData.BothTargetRegions.sort.clusterIdentifier.out --output_base SlimData.test
+```
 
 ### Output  
+The output of the program is a simple .bed file with the coordinates of the start and end of the target site duplication. For the example data there are only two:
+```
+> cat SlimData.test.WindowSize25.AllTSDs.bed
+scaffold_29     4822338 4822347
+scaffold_29     6632085 6632099
+
+```
+
+This can be loaded into IGV as a .bed track or intersected with an annotation file using bedtools. 
 
