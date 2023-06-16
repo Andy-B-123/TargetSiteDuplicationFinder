@@ -237,7 +237,7 @@ def main():
 	window_size= 30
 	step_size = 6
 	global coverage_threshold 
-	coverage_threshold= 20
+	coverage_threshold= 15
 	global input_read_length 
 	input_read_length = 150		 # Assumed to be 150
 
