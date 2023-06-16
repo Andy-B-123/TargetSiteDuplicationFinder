@@ -59,8 +59,7 @@ def process_cluster_identifier_data(cluster_identifier_path):
 			continue
 		elif ((current_coord - previous_coord) < (window_size*2)) and (previous_orientation != current_orientation):
 			if check_for_ref_seq_overlap_from_cluster_consensus(previous_anchor_seq,current_anchor_seq):
-				midpoint_coord = round((previous_coord + current_coord) / 2)
-				candidate_TSD_sites.append([current_contig,midpoint_coord])
+				candidate_TSD_sites.append([current_contig,previous_coord,current_coord])
 			previous_contig = current_contig
 			previous_coord = current_coord
 			previous_orientation = current_orientation
@@ -103,7 +102,7 @@ def generate_coordinates(bam_characteristics,cluster_identifier_hits,step_size,w
 
 	coordinates = []
 	for potential_TSD in cluster_identifier_hits:
-		for j in range( (potential_TSD[1]-(window_size*2)) , (potential_TSD[1]+(window_size*2)) , step_size):
+		for j in range( (potential_TSD[1]-(window_size*2)) , (potential_TSD[1]+(window_size*4)) , step_size):
 			coordinates.append([potential_TSD[0],j,j + window_size])
 	return coordinates
 
