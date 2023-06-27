@@ -3,10 +3,9 @@
 ### Consider subsetting your bam file to your region of interesting using samtools:
 ###	samtools view -b -o subset.bam original.bam contig:start-end
 ###	samtools index subset.bam
-### Candidate TSD sites are initially identified using cluster_identifier from Scramble (https://github.com/GeneDx/scramble). Please run this on the .bam file you are looking to process (eg your subset file above)
-### 	cluster_identifier subset.bam > subset.potential_sites.out
+### Candidate TSD sites are initially identified using cluster_identifier from Scramble (https://github.com/GeneDx/scramble). This is assumed to be present in PATH or you can provide the executable path as an arguement
 ### Run this script:
-### python TSD_parser.py --input_bam subset.bam --input_cluster_identifier_file subset.potential_sites.out --output_base subset.TSD_sites.bed --input_type SR
+### python TSD_parser.py --input_bam subset.bam  --output_base subset.TSD_sites.bed --input_type SR --cluster_identifer_path /path/to/SCRAMBLE/cluster_identifer
 
 import pysam
 from icecream import ic
