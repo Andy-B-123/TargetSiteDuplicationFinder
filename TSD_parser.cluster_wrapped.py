@@ -5,7 +5,7 @@
 ###	samtools index subset.bam
 ### Candidate TSD sites are initially identified using cluster_identifier from Scramble (https://github.com/GeneDx/scramble). This is assumed to be present in PATH or you can provide the executable path as an arguement
 ### Run this script:
-### python TSD_parser.py --input_bam subset.bam  --output_base subset.TSD_sites.bed --input_type SR --cluster_identifer_path /path/to/SCRAMBLE/cluster_identifer
+### python TSD_parser.cluster_wrapped.py --input_bam subset.bam  --output_base subset.TSD_sites.bed --input_type SR --cluster_identifer_path /path/to/SCRAMBLE/cluster_identifer
 
 import pysam
 from icecream import ic
