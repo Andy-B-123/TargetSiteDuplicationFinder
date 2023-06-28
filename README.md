@@ -26,11 +26,11 @@ The python script does not require installation, please just clone the repositor
 ```
 git clone https://github.com/Andy-B-123/TargetSiteDuplicationFinder.git
 cd TargetSiteDuplicationFinder
-python TSD_parser.py --help
+python TSD_parser.cluster_wrapped.py --help
 ```
 
 ```python
-usage: TSD_parser.py [-h] [--input_bam INPUT_BAM] [--input_cluster_identifier_file INPUT_CLUSTER_IDENTIFIER_FILE] [--output_base OUTPUT_BASE] [--input_type INPUT_TYPE]
+usage: TSD_parser.cluster_wrapped.py [-h] [--input_bam INPUT_BAM] [--input_cluster_identifier_file INPUT_CLUSTER_IDENTIFIER_FILE] [--output_base OUTPUT_BASE] [--input_type INPUT_TYPE]
 
 Process BAM files and identify potential Target Site Duplication events.
 
@@ -51,7 +51,7 @@ options:
 If the above is available, please try running with the provided example data:
 ```
 cd TargetSiteDuplicationFinder
-python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --output_base TSD_Check
+python3 TSD_parser.cluster_wrapped.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --output_base TSD_Check
 ```
 
 ### Output  
