@@ -241,7 +241,7 @@ def main():
 	window_size= 30
 	step_size = 6
 	global coverage_threshold 
-	coverage_threshold= 15
+	coverage_threshold= 10
 	global input_read_length 
 	input_read_length = 150		 # Assumed to be 150
 
@@ -269,10 +269,12 @@ def main():
 		output_cluster_file_path = bam_file.replace(".bam",'.cluster_identifier.out')
 		cluster_identifer_command = "cluster_identifier " + bam_file + " > " + output_cluster_file_path
 		process = subprocess.Popen(cluster_identifer_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		process.wait()
 	else:
 		output_cluster_file_path = bam_file.replace(".bam",'.cluster_identifier.out')
 		cluster_identifer_command = cluster_identifer_path + " " + bam_file + " > " + output_cluster_file_path
 		process = subprocess.Popen(cluster_identifer_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		process.wait()
 
 	bam_file_parameters = get_alignment_characteristics(bam_file)
 	ic(len(bam_file_parameters))
