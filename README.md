@@ -61,14 +61,13 @@ For the example data there are only two:
 > cat TSD_Check.WindowSize_30.bed
 scaffold_29     4822338 4822347 scaffold_29:4822338
 scaffold_29     6632085 6632099 scaffold_29:6632085
-
 ```
 
 This can be loaded into IGV as a .bed track or intersected with an annotation file using bedtools. 
 
 For example, to look at intersections with coding sequences using bedtools from a gff file, first extract only the target annotations of interest (in our case, CDS):
 ```
-grep -P "\tCDS\t" ${gff_file} > ${gff_file.onlyCDS.gff}
+grep -P "\tCDS\t" ${file.gff} > ${gff_file.onlyCDS.gff}
 bedtools intersect -a TSD_Check.WindowSize_30.bed -b ${gff_file.onlyCDS.gff} -wb > intersections.out
 ```
 
@@ -111,5 +110,5 @@ tcatctgcatgcgataagaactcaaaaaaaaagttgatctgctagacaatgatctgccacgttcacggacac
 atgtcagtgaacttggcagatcattgtctagcagatcaactttttttttgagttcttatcgca
 ```
 
-You can provide the 'clip' consensus flies to a program like RepeatMasker to identify repeats which can provide infomration on repeats identified, or use blast+ or mmseqs to search against known repeat databases.
+You can provide the 'clip' consensus flies to a program like [RepeatMasker](https://github.com/rmhubley/RepeatMasker) to identify repeats which can provide in preliminary identification or use blast+ or [mmseqs](https://github.com/soedinglab/MMseqs2) to search against known repeat databases. Alternatively, you can use these sequences as starting places for targeted assembly using tools such as [aTram](https://github.com/juliema/aTRAM).
 
