@@ -38,12 +38,12 @@ options:
   -h, --help            show this help message and exit
   --input_bam INPUT_BAM
                         Full path to input .BAM file to process. Assumed sorted and indexed.
-  --input_cluster_identifier_file INPUT_CLUSTER_IDENTIFIER_FILE
-                        Full path to the output of cluster_identifier run on your .BAM file. ASSUMES YOU HAVE RUN IT ON THE SAME BAM FILE AS PROVIDED ABOVE
   --output_base OUTPUT_BASE
                         Output base name. Default current working directory and "TSD_parse_out"
   --input_type INPUT_TYPE
                         One of SR, LR, AS for Short-Read, Long-Read or Assembly for the type of bam to process.
+  --cluster_identifer_path
+                        The path to the cluster_identifier executable if not availbale in current PATH. Assumed to be in current PATH.
 
 ```
 
