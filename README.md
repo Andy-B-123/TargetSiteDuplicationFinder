@@ -1,8 +1,8 @@
 # TargetSiteDuplicationFinder
-A series of scripts to identify mobile element insertions characterised by Target Site Duplications (TSD) from a short-read alignment file.
+A simple script to identify mobile element insertions characterised by Target Site Duplications (TSD) from a short-read data.
 
 ### Assumptions
-This script is is focused on identifying mobile elements which cause Target Site Duplications, which are often not able to be identified correctly from other variant analysis tools.
+This script is is focused on identifying mobile elements which cause Target Site Duplications, which are often not able to be identified correctly from other variant analysis tools (eg GatK, Smoove, LUMPY).
 The following assumptions are made about the file:
  * A single sample mapped to a reference
  * Mapped using BWA-MEM2 (required for soft-clipping from reads)
