@@ -112,3 +112,4 @@ atgtcagtgaacttggcagatcattgtctagcagatcaactttttttttgagttcttatcgca
 
 You can provide the 'clip' consensus flies to a program like [RepeatMasker](https://github.com/rmhubley/RepeatMasker) to identify repeats which can provide in preliminary identification or use blast+ or [mmseqs](https://github.com/soedinglab/MMseqs2) to search against known repeat databases. Alternatively, you can use these sequences as starting places for targeted assembly using tools such as [aTram](https://github.com/juliema/aTRAM).
 
+The 'anchor' sequences can help identify the surrounding region to the target site insertion to assess for local structural similarities in these areas which may make them susceptible to insertion.
