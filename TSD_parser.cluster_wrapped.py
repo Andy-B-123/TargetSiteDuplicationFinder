@@ -158,7 +158,7 @@ def check_for_TSD(bam_iterator,scaffold,start,stop):
 	if len(pileup_window) == 0:
 		return None
 	count_under_threshold = sum(1 for value in pileup_window if value < coverage_threshold)
-	if count_under_threshold / len(pileup_window) > 0.15:
+	if (count_under_threshold / len(pileup_window)) > 0.15:
 		return None
 	
 	average_coverage = np.mean(pileup_window)
@@ -229,9 +229,11 @@ def check_for_mismapped_reads(bam_iterator,scaffold,start,stop):
 			non_primary_count += 1
 		else:
 			primary_count +=  1
-	if ((mismapped_count / total_reads) > 0.75):
+	if ((mismapped_count / total_reads) > 0.60):
 		return True
 	else:
+		print(scaffold,start,stop)
+		print((mismapped_count / total_reads))
 		return False
 
 def main():
@@ -241,7 +243,7 @@ def main():
 	window_size= 30
 	step_size = 6
 	global coverage_threshold 
-	coverage_threshold= 10
+	coverage_threshold= 7
 	global input_read_length 
 	input_read_length = 150		 # Assumed to be 150
 
