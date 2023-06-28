@@ -5,7 +5,7 @@ A simple script to identify mobile element insertions characterised by Target Si
 This script is is focused on identifying mobile elements which cause Target Site Duplications, which are often not able to be identified correctly from other variant analysis tools (eg GatK, Smoove, LUMPY).
 The following assumptions are made about the file:
  * A single sample mapped to a reference
- * Mapped using BWA-MEM2 (required for soft-clipping from reads)
+ * Mapped using BWA-MEM2 (required for soft-clipping information from reads)
  * Sorted and index available
  * Average coverage ~20x[^1]
 [^1]: Note that if you have less than this you can adjust the threshold, but much less than 10x is going to be hard to identify TSD reliably
