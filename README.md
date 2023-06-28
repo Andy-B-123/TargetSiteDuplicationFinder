@@ -51,7 +51,7 @@ options:
 If the above is available, please try running with the provided example data:
 ```
 cd TargetSiteDuplicationFinder
-python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --input_cluster_identifier_file ExampleData/SlimData.BothTargetRegions.sort.clusterIdentifier.out --output_base TSD_Check
+python3 TSD_parser.py --input_bam ExampleData/SlimData.BothTargetRegions.sort.bam --output_base TSD_Check
 ```
 
 ### Output  
@@ -66,5 +66,50 @@ scaffold_29     6632085 6632099 scaffold_29:6632085
 
 This can be loaded into IGV as a .bed track or intersected with an annotation file using bedtools. 
 
+For example, to look at intersections with coding sequences using bedtools from a gff file, first extract only the target annotations of interest (in our case, CDS):
+```
+grep -P "\tCDS\t" ${gff_file} > ${gff_file.onlyCDS.gff}
+bedtools intersect -a TSD_Check.WindowSize_30.bed -b ${gff_file.onlyCDS.gff} -wb > intersections.out
+```
+
 ### Follow-up
-After identifying interesting TSD sites we can use the output from cluster_identifier for identification of potential repeat elements (or other investigations).  
+
+After identifying interesting TSD sites we can use the output from cluster_identifier for identification of potential repeat elements. Using the provided bash script "ConvertClusterIdentifierOutputToFasta.sh" you can convert the output into standard .fasta sequences. Note that this is for ALL candidate sites, and that the ones identified above are a subset of these. 
+
+```
+chmod a+x ConvertClusterIdentifierOutputToFasta.sh
+./ConvertClusterIdentifierOutputToFasta.sh SlimData.BothTargetRegions.sort.cluster_identifier.out
+```
+
+This will produce two fasta files, containing the 'clipped' consensus sequence (eg those in the inesertion region) and the 'anchor' consensus sequence (eg those in the reference sequence).
+```
+$ head SlimData.BothTargetRegions.sort.cluster_identifier.anchoredConsensus.fasta
+
+>scaffold_29:4821730_right_23_AnchoredReadSeq
+gtttggccccgattaaatttaatttttaaatagattggggaggaaactagccagtaataattaattagaagttctgcagcttgtgaggtaaccgttttatgctaatgactttttatgataataaagctaaaatt
+>scaffold_29:4821799_left_7_AnchoredReadSeq
+tgctgcttttccacataattatgtatagctggagagctcattagacttaacatttatgtattagttattttattactctccatagctacatacatataaaacattgtaactcctagctgaatgtacaaatatac
+>scaffold_29:4821901_left_25_AnchoredReadSeq
+ttcaataatttttcatcttactgattacgttaaatctagtcgtagtcacactagtcactatgggttttgctaaaagtgcagttaaacatttctttaaatacttactgcagttcattccctgcagatcacttgtggtt
+>scaffold_29:4822338_left_14_AnchoredReadSeq
+atttgttccgtgcctcgcttgctcttccgctatctcaccgctggcaattactaaactttcgcattttcttaaatattgctctccgatgactgcaggactatctgcaattggaacaataataatacaaagccaagaga
+>scaffold_29:4822347_right_10_AnchoredReadSeq
+aaaaataaaaataccctttcatataaagagaataatgccatacacgctgtttctaatttgataaggtccatagctcccgtcgtagtcacacgttacaactgggttgccgaggaaatttgttcc
+
+
+$ head SlimData.BothTargetRegions.sort.cluster_identifier.clipConsensus.fasta
+
+>scaffold_29:4821730_right_23_ClipConsensus
+gatttcgtggttgtcgagctgctgcttttccacataattatgtatagctggagagctcattagacttaacatttatgtattagttattttattactctccatagctacctac
+>scaffold_29:4821799_left_7_ClipConsensus
+aaccgttttatgctaatgactttttatgataataaagctaaaattgatttcgtggttgtcgagc
+>scaffold_29:4821901_left_25_ClipConsensus
+tagctggagagctcattagacttaacatttatgtattagttattttattactctccatagctacatacatataaaacattgtaactactagctgaatgtacaaatatactttgtaca
+>scaffold_29:4822338_left_14_ClipConsensus
+tcatctgcatgcgataagaactcaaaaaaaaagttgatctgctagacaatgatctgccacgttcacggacac
+>scaffold_29:4822347_right_10_ClipConsensus
+atgtcagtgaacttggcagatcattgtctagcagatcaactttttttttgagttcttatcgca
+```
+
+You can provide the 'clip' consensus flies to a program like RepeatMasker to identify repeats which can provide infomration on repeats identified, or use blast+ or mmseqs to search against known repeat databases.
+
