@@ -232,8 +232,8 @@ def check_for_mismapped_reads(bam_iterator,scaffold,start,stop):
 	if ((mismapped_count / total_reads) > 0.60):
 		return True
 	else:
-		print(scaffold,start,stop)
-		print((mismapped_count / total_reads))
+		# print(scaffold,start,stop)
+		# print((mismapped_count / total_reads))
 		return False
 
 def main():
