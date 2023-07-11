@@ -17,6 +17,7 @@ import argparse
 import numpy as np
 import shutil
 import subprocess
+from collections import Counter
 
 parser = argparse.ArgumentParser(description='Process BAM files and identify potential Target Site Duplication events.')
 parser.add_argument('--input_bam', help='Full path to input .BAM file to process. Assumed sorted and indexed.')
@@ -64,6 +65,8 @@ def process_cluster_identifier_data(cluster_identifier_path):
 			continue
 		elif ((current_coord - previous_coord) < (window_size*2)) and (previous_orientation != current_orientation):
 			if check_for_ref_seq_overlap_from_cluster_consensus(previous_anchor_seq,current_anchor_seq):
+				ic(previous_anchor_seq)
+				ic(current_anchor_seq)
 				candidate_TSD_sites.append([current_contig,previous_coord,current_coord])
 			previous_contig = current_contig
 			previous_coord = current_coord
@@ -78,9 +81,21 @@ def process_cluster_identifier_data(cluster_identifier_path):
 	return candidate_TSD_sites
 
 def check_for_ref_seq_overlap_from_cluster_consensus(anchor_seq_first, anchor_seq_second):
-	for i in range(5,40):
+	kmer_size = 4
+	for i in range(40,-1,-1):
 		if anchor_seq_first[:i] == anchor_seq_second[-i:]:
-			return True
+			kmers = []
+			for j in range(len(anchor_seq_first[:i]) - kmer_size + 1):
+				kmer = anchor_seq_first[:i][j:j+kmer_size]
+				kmers.append(kmer)
+			ic(kmers)
+			kmer_counts = Counter(kmers)
+			ic(kmer_counts)
+			if len(kmer_counts) > 4:
+				print(anchor_seq_first[:i])
+				return True
+			else:
+				return False
 	return False
 
 def get_alignment_characteristics(bam_file):
@@ -140,7 +155,7 @@ def read_BAM_file(bam_file, bam_file_coordinates):
 def check_sufficient_coverage(bam_iterator,scaffold,start,stop):
 	coverage_lists = bam_iterator.count_coverage(contig=scaffold, start=start, stop=stop, read_callback="nofilter")
 	total_coverage = np.sum(coverage_lists)
-	if total_coverage > coverage_threshold:
+	if (total_coverage > coverage_threshold_min) and (total_coverage < coverage_threshold_max):
 		return True
 	else:
 		return False
@@ -157,7 +172,7 @@ def check_for_TSD(bam_iterator,scaffold,start,stop):
 	#Filter out windows with deletions present which mess up assessment of TSD:
 	if len(pileup_window) == 0:
 		return None
-	count_under_threshold = sum(1 for value in pileup_window if value < coverage_threshold)
+	count_under_threshold = sum(1 for value in pileup_window if value < coverage_threshold_min)
 	if (count_under_threshold / len(pileup_window)) > 0.15:
 		return None
 	
@@ -232,8 +247,8 @@ def check_for_mismapped_reads(bam_iterator,scaffold,start,stop):
 	if ((mismapped_count / total_reads) > 0.60):
 		return True
 	else:
-		# print(scaffold,start,stop)
-		# print((mismapped_count / total_reads))
+		print(scaffold,start,stop)
+		print((mismapped_count / total_reads))
 		return False
 
 def main():
@@ -242,8 +257,10 @@ def main():
 	global window_size 
 	window_size= 30
 	step_size = 6
-	global coverage_threshold 
-	coverage_threshold= 7
+	global coverage_threshold_min 
+	coverage_threshold_min= 7
+	global coverage_threshold_max 
+	coverage_threshold_max= 200
 	global input_read_length 
 	input_read_length = 150		 # Assumed to be 150
 
@@ -286,6 +303,9 @@ def main():
 		ic("Short read sample indicated")
 		cluster_identifier_file_TSD_coordinates = process_cluster_identifier_data(output_cluster_file_path)
 		ic(len(cluster_identifier_file_TSD_coordinates))
+		ic(cluster_identifier_file_TSD_coordinates)
+		export_df = pd.DataFrame(cluster_identifier_file_TSD_coordinates)
+		export_df.to_csv("export_df.candidateSites.csv")
 		bam_file_coordinates = generate_coordinates(bam_file_parameters,cluster_identifier_file_TSD_coordinates,step_size,window_size)
 		ic(len(bam_file_coordinates))
 		Potential_TSD_list = read_BAM_file(bam_file, bam_file_coordinates)
