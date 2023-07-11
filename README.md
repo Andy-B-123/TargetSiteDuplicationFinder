@@ -1,4 +1,6 @@
 # TargetSiteDuplicationFinder
+_WorkInProgress!_ At the moment need to work on reducing false-positives. Please verify TSD calls.
+
 A simple script to identify mobile element insertions characterised by Target Site Duplications (TSD) from a short-read data.
 
 ### Assumptions
