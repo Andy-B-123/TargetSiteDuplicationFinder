@@ -305,7 +305,7 @@ def main():
 		ic(len(cluster_identifier_file_TSD_coordinates))
 		ic(cluster_identifier_file_TSD_coordinates)
 		export_df = pd.DataFrame(cluster_identifier_file_TSD_coordinates)
-		export_df.to_csv("export_df.candidateSites.csv")
+		export_df.to_csv(output_base + ".export_df.candidateSites.csv")
 		bam_file_coordinates = generate_coordinates(bam_file_parameters,cluster_identifier_file_TSD_coordinates,step_size,window_size)
 		ic(len(bam_file_coordinates))
 		Potential_TSD_list = read_BAM_file(bam_file, bam_file_coordinates)
