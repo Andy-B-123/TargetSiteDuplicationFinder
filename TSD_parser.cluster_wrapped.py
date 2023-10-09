@@ -166,9 +166,13 @@ def check_for_TSD(bam_iterator,scaffold,start,stop):
 	bump_start_coordinate = 0
 	bump_end_coordinate = 0
 
-	for pileupcolumn in bam_iterator.pileup(scaffold,start,stop,stepper = "nofilter",truncate =True):
-		pileup_window.append(len(list(filter(None,pileupcolumn.get_query_sequences()))))
-	
+	try:
+		for pileupcolumn in bam_iterator.pileup(scaffold,start,stop,stepper = "nofilter",truncate =True):
+			pileup_window.append(len(list(filter(None,pileupcolumn.get_query_sequences()))))
+	except Exception as e:
+		print(f"An error occurred: {e}. Coordinates might be out of range? Skipping this one.")
+                return None
+		
 	#Filter out windows with deletions present which mess up assessment of TSD:
 	if len(pileup_window) == 0:
 		return None
