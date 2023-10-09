@@ -88,9 +88,9 @@ def check_for_ref_seq_overlap_from_cluster_consensus(anchor_seq_first, anchor_se
 			for j in range(len(anchor_seq_first[:i]) - kmer_size + 1):
 				kmer = anchor_seq_first[:i][j:j+kmer_size]
 				kmers.append(kmer)
-			ic(kmers)
+			#ic(kmers)
 			kmer_counts = Counter(kmers)
-			ic(kmer_counts)
+			#ic(kmer_counts)
 			if len(kmer_counts) > 4:
 				print(anchor_seq_first[:i])
 				return True
