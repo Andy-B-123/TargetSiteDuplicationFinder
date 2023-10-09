@@ -154,7 +154,7 @@ def read_BAM_file(bam_file, bam_file_coordinates):
 
 def check_sufficient_coverage(bam_iterator,scaffold,start,stop):
 	coverage_lists = bam_iterator.count_coverage(contig=scaffold, start=start, stop=stop, read_callback="nofilter")
-	total_coverage = np.sum(coverage_lists)
+	total_coverage = np.sum(coverage_lists) / 4
 	if (total_coverage > coverage_threshold_min) and (total_coverage < coverage_threshold_max):
 		return True
 	else:
