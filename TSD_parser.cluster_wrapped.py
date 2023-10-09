@@ -5,7 +5,7 @@
 ###	samtools index subset.bam
 ### Candidate TSD sites are initially identified using cluster_identifier from Scramble (https://github.com/GeneDx/scramble). This is assumed to be present in PATH or you can provide the executable path as an arguement
 ### Run this script:
-### python TSD_parser.cluster_wrapped.py --input_bam subset.bam  --output_base subset.TSD_sites.bed --input_type SR --cluster_identifer_path /path/to/SCRAMBLE/cluster_identifer
+### python TSD_parser.cluster_wrapped.py --input_bam subset.bam  --output_base subset.TSD_sites.bed --input_type SR --cluster_identifier_path /path/to/SCRAMBLE/cluster_identifer
 
 import pysam
 from icecream import ic
@@ -23,18 +23,18 @@ parser = argparse.ArgumentParser(description='Process BAM files and identify pot
 parser.add_argument('--input_bam', help='Full path to input .BAM file to process. Assumed sorted and indexed.')
 parser.add_argument('--output_base', help='Output base name. Default current working directory and "TSD_parse_out"', default = "TSD_parse_out" )
 parser.add_argument('--input_type', help = 'One of SR, LR, AS for Short-Read, Long-Read or Assembly for the type of bam to process. Default is Short-read.', default = "SR")
-parser.add_argument('--cluster_identifer_path', help='The path to the cluster_identifier executable if not availbale in current PATH. Assumed to be in current PATH.', default = "PATH")
+parser.add_argument('--cluster_identifier_path', help='The path to the cluster_identifier executable if not availbale in current PATH. Assumed to be in current PATH.', default = "PATH")
 
 args = parser.parse_args()
 
 input_path_bam = args.input_bam
 output_base = args.output_base
 input_bam_type = args.input_type
-cluster_identifer_path = args.cluster_identifer_path
+cluster_identifier_path = args.cluster_identifier_path
 ic(input_path_bam)
 ic(output_base)
 ic(input_bam_type)
-ic(cluster_identifer_path)
+ic(cluster_identifier_path)
 
 def process_cluster_identifier_data(cluster_identifier_path):
 
@@ -266,7 +266,7 @@ def main():
 
 	# Check for cluster_identifier presence and establish path
 	custom_path = False
-	if cluster_identifer_path == "PATH":
+	if cluster_identifier_path == "PATH":
 		print(" 'cluster_identifer' from SCRAMBLE assumed to be in PATH, checking...")
 		path = shutil.which("cluster_identifier") 
 		if path is None:
@@ -276,7 +276,7 @@ def main():
 			print("'cluster_identifier' present. Proceeding...")
 	else:
 		print("Custom path for 'cluster_identifer' from SCRAMBLE provided, checking...")
-		path = shutil.which(cluster_identifer_path)
+		path = shutil.which(cluster_identifier_path)
 		if path is None:
 			print("No 'cluster_identifier' executable present in path. Exiting...")
 			exit()
@@ -291,7 +291,7 @@ def main():
 		process.wait()
 	else:
 		output_cluster_file_path = bam_file.replace(".bam",'.cluster_identifier.out')
-		cluster_identifer_command = cluster_identifer_path + " " + bam_file + " > " + output_cluster_file_path
+		cluster_identifer_command = cluster_identifier_path + " " + bam_file + " > " + output_cluster_file_path
 		process = subprocess.Popen(cluster_identifer_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 		process.wait()
 
