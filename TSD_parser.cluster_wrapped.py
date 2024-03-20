@@ -290,12 +290,12 @@ def main():
 
 	if custom_path == False:
 		output_cluster_file_path = bam_file.replace(".bam",'.cluster_identifier.out')
-		cluster_identifer_command = "cluster_identifier " + bam_file + " > " + output_cluster_file_path
+		cluster_identifer_command = "cluster_identifier -s 2 " + bam_file + " > " + output_cluster_file_path
 		process = subprocess.Popen(cluster_identifer_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 		process.wait()
 	else:
 		output_cluster_file_path = bam_file.replace(".bam",'.cluster_identifier.out')
-		cluster_identifer_command = cluster_identifier_path + " " + bam_file + " > " + output_cluster_file_path
+		cluster_identifer_command = cluster_identifier_path + " -s 2  " + bam_file + " > " + output_cluster_file_path
 		process = subprocess.Popen(cluster_identifer_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 		process.wait()
 
