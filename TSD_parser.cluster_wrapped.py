@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 ### Written by Andy Bachler, uploaded 16/06/2023
 ### Please ensure that the .bam file to be processed is <500MB, significant speed decreases occur for larger .bam files
 ### Consider subsetting your bam file to your region of interesting using samtools:
