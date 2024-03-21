@@ -18,7 +18,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'TSD_parser.cluster_wrapped = TSD_parser.cluster_wrapped:main',
+            'TSD_test.py = TSD_test.py:main',
         ],
     },
 )
