@@ -15,19 +15,16 @@ The following assumptions are made about the file:
 The parsing script takes advantage of the output from the _very_ fast cluster_identifier tool written for the [Scramble](https://github.com/GeneDx/scramble) program, which identifies ALU, LINE and SVA elements in humans. Please follow the installation instructions on that page to install cluster_identifier (you will need htslib available).
 
 ### Install 
-The parsing script here uses a small number of non-standard python libraries. Please install to user (if you do not have root permissions) for the following:
-```
-pip install tqdm --user
-pip install icecream --user
-pip install pandas --user
-pip install pysam --user
-pip install numpy --user
-```
-
-The python script does not require installation, please just clone the repository and run:
+The parsing script here uses a small number of non-standard python libraries (see Setup.py for list). Please install using pip with the following approach:
 ```
 git clone https://github.com/Andy-B-123/TargetSiteDuplicationFinder.git
 cd TargetSiteDuplicationFinder
+pip install .
+```
+
+If installed correctly please try running the following:
+
+```
 python TSD_parser.cluster_wrapped.py --help
 ```
 
