@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='your_script_name',
+    name='TargetSiteDuplicationFinder',
     version='1.0.0',
-    description='Description of your script',
-    author='Your Name',
-    author_email='your@email.com',
+    description='Script for analysing alignment files generated from BWA-MEM2 for transposable element insertions',
+    author='Andreas Bachler',
+    author_email='Andy.Bachler@gmail.com',
     url='https://github.com/Andy-B-123/TargetSiteDuplicationFinder',
     packages=find_packages(),
     install_requires=[
