@@ -18,7 +18,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'TSD_test = TSD_test.py:main',
+            'TSD_test = TSD_test:main',
         ],
     },
 )
